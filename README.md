@@ -1,5 +1,9 @@
 # Kubernetes setup
 
+Repo at [https://github.com/michaeldbianchi/dev-kubernetes-cluster](https://github.com/michaeldbianchi/dev-kubernetes-cluster)
+
+Docs at [https://docs.blualism.com/](https://docs.blualism.com/)
+
 Access the test app at [http://dev.blualism.com](http://dev.blualism.com)
 
 ## Details
