@@ -1,5 +1,8 @@
 # Table of contents
 
 * [Kubernetes setup](README.md)
-* [Kubernetes Research](kubernetes-research.md)
+
+## docs
+
+* [Kubernetes Research](docs/kubernetes-research.md)
 

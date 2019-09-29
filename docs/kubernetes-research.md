@@ -1,7 +1,5 @@
 # Kubernetes Research
 
-
-
 ## Simple
 
 ### Core Concepts
