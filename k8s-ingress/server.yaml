@@ -27,6 +27,8 @@ kind: Service
 apiVersion: v1
 metadata:
   name: helloworld
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: hello.blualism.com
 spec:
   selector:
     app: helloworld
