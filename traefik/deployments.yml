@@ -32,7 +32,6 @@ spec:
             - --accesslog
             - --log.level=DEBUG
             - --entrypoints.web.Address=:80
-            - --entryPoints.web.forwardedheaders.insecure=true
             - --entrypoints.websecure.Address=:443
             - --providers.kubernetescrd
             - --certificatesresolvers.default.acme.tlschallenge
