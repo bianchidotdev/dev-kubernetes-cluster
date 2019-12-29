@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: default
+  name: traefik-ingress-controller
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: traefik
+  labels:
+    app: traefik
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      serviceAccountName: traefik-ingress-controller
+      containers:
+        - name: traefik
+          image: traefik:v2.0
+          args:
+            - --api.insecure
+            - --accesslog
+            - --log.level=DEBUG
+            - --entrypoints.web.Address=:80
+            - --entryPoints.web.forwardedheaders.insecure=true
+            - --entrypoints.websecure.Address=:443
+            - --providers.kubernetescrd
+            - --certificatesresolvers.default.acme.tlschallenge
+            - --certificatesResolvers.default.acme.httpChallenge=true
+            - --certificatesResolvers.default.acme.httpChallenge.entryPoint=web
+            - --certificatesresolvers.default.acme.email=michaeldbianchi@gmail.com
+            - --certificatesresolvers.default.acme.storage=acme.json
+          ports:
+            - name: web
+              containerPort: 80
+            - name: websecure
+              containerPort: 443
+            - name: admin
+              containerPort: 8080
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: whoami
+  labels:
+    app: whoami
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: whoami
+  template:
+    metadata:
+      labels:
+        app: whoami
+    spec:
+      containers:
+        - name: whoami
+          image: containous/whoami
+          ports:
+            - name: web
+              containerPort: 80
