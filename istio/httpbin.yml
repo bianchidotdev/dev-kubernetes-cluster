@@ -10,7 +10,7 @@ metadata:
     service: httpbin
 spec:
   ports:
-  - port: 9080
+  - port: 80
     name: http
   selector:
     app: httpbin
@@ -47,5 +47,5 @@ spec:
         image: kennethreitz/httpbin
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 9080
+        - containerPort: 80
 ---

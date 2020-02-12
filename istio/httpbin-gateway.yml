@@ -19,15 +19,12 @@ metadata:
   name: httpbin
 spec:
   hosts:
-  - "*"
+  - "httpbin.blualism.com"
   gateways:
   - httpbin-gateway
   http:
-  - match:
-    - uri:
-        exact: /
-    route:
+  - route:
     - destination:
         host: httpbin
         port:
-          number: 9080
+          number: 80
