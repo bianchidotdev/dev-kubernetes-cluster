@@ -1,0 +1,51 @@
+#################################################################################################
+# Details service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin
+  labels:
+    app: httpbin
+    service: httpbin
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: httpbin
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gke-httpbin
+  labels:
+    account: httpbin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpbin-v1
+  labels:
+    app: httpbin
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpbin
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v1
+    spec:
+      serviceAccountName: gke-httpbin
+      containers:
+      - name: httpbin
+        image: kennethreitz/httpbin
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9080
+---
